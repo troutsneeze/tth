@@ -130,8 +130,6 @@ else() # Linux
 	if(DEMO)
 		add_compile_definitions(DEMO)
 	endif()
-	set_target_properties("tth" PROPERTIES COMPILE_FLAGS "${FLAGS}")
-	set_target_properties("tth" PROPERTIES LINK_FLAGS "${LFLAGS}")
 	set_target_properties("tth" PROPERTIES OUTPUT_NAME "tth")
 	set(LIBS ${LIBS} wedge3 shim3 tgui5 SDL2 GL Xcursor X11 FLAC ogg z)
 endif()

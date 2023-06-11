@@ -165,7 +165,7 @@ elseif(IOS)
 	set_target_properties(${WEDGE_LIB} PROPERTIES COMPILE_FLAGS "${FLAGS}")
 	set_xcode_property(${WEDGE_LIB} IPHONEOS_DEPLOYMENT_TARGET "8.0")
 else() # Linux
-	SET(FLAGS "${FLAGS} -fpermissive -fvisibility=hidden -Wall -Wno-psabi -Wno-strict-aliasing -Wno-comment -std=c++0x")
+	add_compile_options(-fpermissive -fvisibility=hidden -Wall -Wno-psabi -Wno-strict-aliasing -Wno-comment -std=c++0x)
 	if(STEAMWORKS)
 		add_compile_definitions(STEAMWORKS)
 	endif()
@@ -196,7 +196,6 @@ else() # Linux
 	if(RASPBERRYPI)
 		include_directories("/opt/vc/include")
 	endif()
-	set_target_properties(${WEDGE_LIB} PROPERTIES COMPILE_FLAGS "${FLAGS}")
 endif()
 
 target_link_libraries(${WEDGE_LIB} ${LIBS})
