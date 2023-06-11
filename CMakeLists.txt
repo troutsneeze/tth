@@ -61,10 +61,6 @@ if(APPLE)
 	set(SOURCES ${SOURCES} src/apple.M)
 endif()
 
-# Outputs
-
-add_executable("tth" ${SOURCES})
-
 # Platform specifics
 
 if(MINGW)
@@ -89,7 +85,6 @@ if(MINGW)
 	if(WANT_TTF)
 		add_compile_definitions(USE_TTF)
 	endif()
-	set_target_properties("tth" PROPERTIES OUTPUT_NAME "tth")
 	set(LIBS ${LIBS} ${WEDGE3_LIB} ${SHIM3_LIB} ${TGUI5_LIB} mingw32 SDL2main SDL2 FLAC ogg freetype zlibstatic d3d9 winmm dbghelp shcore msvcrt imm32 setupapi version)
 elseif(WIN32)
 	set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS /IGNORE:4075 /IGNORE:4099")
@@ -111,8 +106,6 @@ elseif(WIN32)
 	if(WANT_TTF)
 		add_compile_options(/DUSE_TTF)
 	endif()
-	set_target_properties("tth" PROPERTIES COMPILE_FLAGS "${FLAGS}")
-	set_target_properties("tth" PROPERTIES OUTPUT_NAME "tth")
 	set(LIBS ${LIBS} ${WEDGE3_LIB} ${SHIM3_LIB} ${TGUI5_LIB} SDL2 SDL2main ogg FLAC zlibstatic d3d9 winmm dbghelp shcore)
 else() # Linux
 	add_compile_options(-Wall -Wno-comment -Wno-strict-aliasing -std=c++0x)
@@ -130,8 +123,9 @@ else() # Linux
 	if(DEMO)
 		add_compile_definitions(DEMO)
 	endif()
-	set_target_properties("tth" PROPERTIES OUTPUT_NAME "tth")
 	set(LIBS ${LIBS} wedge3 shim3 tgui5 SDL2 GL Xcursor X11 FLAC ogg z)
 endif()
 
+add_executable("tth" ${SOURCES})
+set_target_properties("tth" PROPERTIES OUTPUT_NAME "tth")
 target_link_libraries("tth" ${LIBS})

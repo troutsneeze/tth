@@ -95,11 +95,6 @@ endif()
 # Outputs
 
 set(WEDGE_LIB wedge3)
-if(SHARED)
-	add_library(${WEDGE_LIB} SHARED ${LIB_SOURCES})
-else()
-	add_library(${WEDGE_LIB} STATIC ${LIB_SOURCES})
-endif()
 
 # Platform specifics
 
@@ -159,11 +154,6 @@ elseif(WIN32)
 	if(SHARED)
 		set(LIBS ${LIBS} zlibstatic)
 	endif()
-	set_target_properties(${WEDGE_LIB} PROPERTIES COMPILE_FLAGS "${FLAGS}")
-elseif(IOS)
-	add_compile_definitions(IOS)
-	set_target_properties(${WEDGE_LIB} PROPERTIES COMPILE_FLAGS "${FLAGS}")
-	set_xcode_property(${WEDGE_LIB} IPHONEOS_DEPLOYMENT_TARGET "8.0")
 else() # Linux
 	add_compile_options(-fpermissive -fvisibility=hidden -Wall -Wno-psabi -Wno-strict-aliasing -Wno-comment -std=c++0x)
 	if(STEAMWORKS)
@@ -198,4 +188,9 @@ else() # Linux
 	endif()
 endif()
 
+if(SHARED)
+	add_library(${WEDGE_LIB} SHARED ${LIB_SOURCES})
+else()
+	add_library(${WEDGE_LIB} STATIC ${LIB_SOURCES})
+endif()
 target_link_libraries(${WEDGE_LIB} ${LIBS})
